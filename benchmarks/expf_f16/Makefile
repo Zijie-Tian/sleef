@@ -1,0 +1,19 @@
+CXX = clang++
+CXXFLAGS = -Wall -O3 -std=c++14 -march=armv8.2-a+fp16+simd
+INCLUDES = -I../../build/include -I../../install/include
+LDFLAGS = -L../../build/lib -L../../install/lib -lsleef -ltlfloat -lm -lbenchmark -lpthread
+
+TARGET = expf_f16_benchmark
+
+all: $(TARGET)
+
+$(TARGET): expf_f16_benchmark.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $< $(LDFLAGS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean 
